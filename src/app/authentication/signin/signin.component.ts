@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ServerServiceService } from 'src/app/service/server-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -9,7 +10,8 @@ import { ServerServiceService } from 'src/app/service/server-service.service';
 export class SigninComponent implements OnInit {
 
   constructor(
-    private serverService: ServerServiceService
+    private serverService: ServerServiceService,
+    private _router: Router
   ) { }
 
   loginForm = {
@@ -21,7 +23,15 @@ export class SigninComponent implements OnInit {
   }
 
   login() {
-    // this.serverService.login(this.loginForm).subscribe()
+    this.serverService.login(this.loginForm).subscribe(response => {
+      sessionStorage.setItem("sid", response.body.sessionid)
+      localStorage.setItem("username", response.body.profile.Username)
+      localStorage.setItem("address", response.body.profile.Address)
+      localStorage.setItem("email", response.body.profile.Email)
+      localStorage.setItem("companyName", response.body.profile.CompanyName)
+      console.log(response.body)
+      this._router.navigate(['home']);
+    })
   }
 
 }

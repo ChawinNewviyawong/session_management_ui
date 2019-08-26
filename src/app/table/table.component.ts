@@ -19,20 +19,20 @@ export class TableComponent implements OnInit {
   }
 
   getAllCars() {
-    // this.serverService.getAllCars().subscribe((response) => {
-    //   interface Type {
-    //     [key: string]: any
-    //   }
+    this.serverService.getAllCars().subscribe((response) => {
+      interface Type {
+        [key: string]: any
+      }
   
-    //   for (let cars of response.body) {
-    //     let car: Type = {};
-    //     car.make = cars.make;
-    //     car.model = cars.model;
-    //     car.color = cars.color;
-    //     car.owner = cars.owner;
-    //     this.cars.push(car);
-    //   }
-    // })
+      for (let cars of response.body) {
+        let car: Type = {};
+        car.make = cars.make;
+        car.model = cars.model;
+        car.color = cars.color;
+        car.owner = cars.owner;
+        this.cars.push(car);
+      }
+    })
   }
 
 }

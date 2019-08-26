@@ -7,6 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
+  profile = {
+    username: localStorage.getItem("username"),
+    address: localStorage.getItem("address"),
+    email: localStorage.getItem("email"),
+    companyName: localStorage.getItem("companyName"),
+  }
+
   constructor() { }
 
   ngOnInit() {

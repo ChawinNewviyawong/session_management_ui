@@ -3,11 +3,9 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type':  'application/json'
-  })
-};
+const headers = new HttpHeaders();
+headers.append("Content-Type", "application/json");
+// headers.append("Authorization", localStorage.getItem('accessToken'));
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +22,7 @@ export class ServerServiceService {
       username: user.username,
       password: user.password
     }
-    return this.httpClient.post<any>("localhost:3000/login", body, httpOptions)
+    return this.httpClient.post<any>("http://localhost:3000/login", body, { headers, observe: 'response' })
       .pipe(
         catchError(this.handleError)
       )
@@ -32,9 +30,9 @@ export class ServerServiceService {
 
   getAllCars() {
     let body = {
-      hash: sessionStorage.getItem('sessionid'),
+      sid: sessionStorage.getItem('sessionid'),
     }
-    return this.httpClient.post<any>('localhost:3000/getAllCars', body, httpOptions)
+    return this.httpClient.post<any>('http://localhost:3000/getAllCars', body, { headers: headers, observe: 'response' })
       .pipe(
         catchError(this.handleError)
       )
