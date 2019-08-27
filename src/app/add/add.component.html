@@ -1,0 +1,33 @@
+<div class="contrainer" style="margin: 50px">
+    <div class="row">
+        <div class="card mx-auto">
+            <div class="card-body">
+                <h2 class="card-title text-center">Add Car</h2>
+                <form style="margin-top: 30px">
+                    <div class="form-group">
+                        <label for="InputMake">Make</label>
+                        <input type="text" class="form-control" id="make" name="make"
+                            placeholder="Enter Make" [(ngModel)]="car.make">
+                    </div>
+                    <div class="form-group">
+                        <label for="InputModel">Model</label>
+                        <input type="text" class="form-control" id="model" name="model" placeholder="Enter Model"
+                            [(ngModel)]="car.model">
+                    </div>
+                    <div class="form-group">
+                        <label for="InputColour">Colour</label>
+                        <input type="text" class="form-control" id="colour" name="colour"
+                            placeholder="Enter Colour" [(ngModel)]="car.colour">
+                    </div>
+                    <div class="form-group">
+                        <label for="InputOwner">Owner</label>
+                        <input type="text" class="form-control" id="owner" name="owner" placeholder="Enter Owner"
+                            [(ngModel)]="car.owner">
+                    </div>
+                    <button type="button" (click)="addCar()" class="btn btn-primary form-control"
+                        style="margin-top: 25px">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

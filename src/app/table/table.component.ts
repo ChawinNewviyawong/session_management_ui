@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ServerServiceService } from '../service/server-service.service';
+import { Router } from '@angular/router';
+import $ from 'jquery';
+import 'bootstrap';
+import { HttpClient } from 'selenium-webdriver/http';
 
 @Component({
   selector: 'app-table',
@@ -9,9 +13,11 @@ import { ServerServiceService } from '../service/server-service.service';
 export class TableComponent implements OnInit {
 
   cars = [];
+  message = "";
 
   constructor(
-    private serverService: ServerServiceService
+    private serverService: ServerServiceService,
+    private _router: Router,
   ) { }
 
   ngOnInit() {
@@ -23,16 +29,33 @@ export class TableComponent implements OnInit {
       interface Type {
         [key: string]: any
       }
-  
-      for (let cars of response.body) {
+
+      for (let cars of response.body.cars.Message) {
+        console.log(cars)
         let car: Type = {};
-        car.make = cars.make;
-        car.model = cars.model;
-        car.color = cars.color;
-        car.owner = cars.owner;
+        car.make = cars.Record.Make;
+        car.model = cars.Record.Model;
+        car.color = cars.Record.Colour;
+        car.owner = cars.Record.Owner;
         this.cars.push(car);
       }
+
+    }, error => {
+      console.log(error)
+      if (error.status == 401) {
+        this.message = error.message;
+        $('#myModal').modal('show')
+      }
     })
+  }
+
+  gotoAdd() {
+    this._router.navigate(['add']);
+  }
+
+  gotoLogin() {
+    $('#myModal').modal('hide')
+    this._router.navigate(['signin'])
   }
 
 }

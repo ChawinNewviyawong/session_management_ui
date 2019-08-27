@@ -23,15 +23,17 @@ export class SigninComponent implements OnInit {
   }
 
   login() {
-    this.serverService.login(this.loginForm).subscribe(response => {
-      sessionStorage.setItem("sid", response.body.sessionid)
-      localStorage.setItem("username", response.body.profile.Username)
-      localStorage.setItem("address", response.body.profile.Address)
-      localStorage.setItem("email", response.body.profile.Email)
-      localStorage.setItem("companyName", response.body.profile.CompanyName)
-      console.log(response.body)
-      this._router.navigate(['home']);
-    })
+    if (this.loginForm.username && this.loginForm.password) {
+      this.serverService.login(this.loginForm).subscribe(response => {
+        sessionStorage.setItem("sid", response.body.sessionid)
+        sessionStorage.setItem("username", response.body.profile.Username)
+        sessionStorage.setItem("address", response.body.profile.Address)
+        sessionStorage.setItem("email", response.body.profile.Email)
+        sessionStorage.setItem("companyName", response.body.profile.CompanyName)
+        console.log(response.body)
+        this._router.navigate(['home']);
+      })
+    }
   }
 
 }

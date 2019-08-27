@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { Profile } from 'selenium-webdriver/firefox';
 
 const headers = new HttpHeaders();
 headers.append("Content-Type", "application/json");
@@ -28,11 +29,33 @@ export class ServerServiceService {
       )
   }
 
+  logout(user) {
+    let body = {
+      username: user.username,
+      sid: sessionStorage.getItem("sid")
+    }
+    return this.httpClient.post<any>("http://localhost:3000/logout", body, { headers, observe: 'response' })
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
   getAllCars() {
     let body = {
-      sid: sessionStorage.getItem('sessionid'),
+      sid: sessionStorage.getItem('sid'),
     }
     return this.httpClient.post<any>('http://localhost:3000/getAllCars', body, { headers: headers, observe: 'response' })
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  addCar(car) {
+    let body = {
+      car: car,
+      sid: sessionStorage.getItem('sid'),
+    }
+    return this.httpClient.post<any>('http://localhost:3000/addCar', body, { headers: headers, observe: 'response' })
       .pipe(
         catchError(this.handleError)
       )
@@ -51,6 +74,6 @@ export class ServerServiceService {
     }
     // return an observable with a user-facing error message
     return throwError(
-      'Something bad happened; please try again later.');
+      error);
   };
 }
