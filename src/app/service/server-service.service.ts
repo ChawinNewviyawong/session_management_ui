@@ -23,7 +23,7 @@ export class ServerServiceService {
       username: user.username,
       password: user.password
     }
-    return this.httpClient.post<any>("http://localhost:3000/login", body, { headers, observe: 'response' })
+    return this.httpClient.post<any>("http://e0261dce.ngrok.io/login", body, { headers, observe: 'response' })
       .pipe(
         catchError(this.handleError)
       )
@@ -34,7 +34,7 @@ export class ServerServiceService {
       username: user.username,
       sid: sessionStorage.getItem("sid")
     }
-    return this.httpClient.post<any>("http://localhost:3000/logout", body, { headers, observe: 'response' })
+    return this.httpClient.post<any>("http://e0261dce.ngrok.io/logout", body, { headers, observe: 'response' })
       .pipe(
         catchError(this.handleError)
       )
@@ -44,7 +44,7 @@ export class ServerServiceService {
     let body = {
       sid: sessionStorage.getItem('sid'),
     }
-    return this.httpClient.post<any>('http://localhost:3000/getAllCars', body, { headers: headers, observe: 'response' })
+    return this.httpClient.post<any>('http://e0261dce.ngrok.io/getAllCars', body, { headers: headers, observe: 'response' })
       .pipe(
         catchError(this.handleError)
       )
@@ -52,12 +52,16 @@ export class ServerServiceService {
 
   addCar(car) {
     let body = {
-      car: car,
+      key: car.key,
+      make: car.make,
+      model: car.model,
+      colour: car.colour,
+      owner: car.owner,
       profile: {
         sid: sessionStorage.getItem('sid'),
       }
     }
-    return this.httpClient.post<any>('http://localhost:3000/addCar', body, { headers: headers, observe: 'response' })
+    return this.httpClient.post<any>('http://e0261dce.ngrok.io/addCar', body, { headers: headers, observe: 'response' })
       .pipe(
         catchError(this.handleError)
       )
