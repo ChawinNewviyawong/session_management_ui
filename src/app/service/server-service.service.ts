@@ -53,7 +53,9 @@ export class ServerServiceService {
   addCar(car) {
     let body = {
       car: car,
-      sid: sessionStorage.getItem('sid'),
+      profile: {
+        sid: sessionStorage.getItem('sid'),
+      }
     }
     return this.httpClient.post<any>('http://localhost:3000/addCar', body, { headers: headers, observe: 'response' })
       .pipe(

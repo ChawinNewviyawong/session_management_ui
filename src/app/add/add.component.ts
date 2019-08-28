@@ -15,6 +15,7 @@ export class AddComponent implements OnInit {
   ) { }
 
   car = {
+    key: "",
     make: "",
     model: "",
     colour: "",
@@ -26,13 +27,8 @@ export class AddComponent implements OnInit {
 
   addCar() {
     this.serverService.addCar(this.car).subscribe((response) => {
-      if (response.status != 200) {
-        console.log(response.statusText)
-      }
-      else {
-        console.log(response.body)
-        this._router.navigate(['home']);
-      }
+      console.log(response.body)
+      this._router.navigate(['home']);
     })
   }
 

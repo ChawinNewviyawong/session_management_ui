@@ -14,6 +14,7 @@ export class TableComponent implements OnInit {
 
   cars = [];
   message = "";
+  role = sessionStorage.getItem('role')
 
   constructor(
     private serverService: ServerServiceService,

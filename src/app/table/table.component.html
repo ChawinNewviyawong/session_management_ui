@@ -19,7 +19,7 @@
                     <h2 class="card-title">Cars</h2>
                 </div>
                 <div class="col-md-6">
-                    <button class="btn btn-primary float-right rounded-pill" (click)="gotoAdd()">+ Add Car</button>
+                    <button class="btn btn-primary float-right rounded-pill" (click)="gotoAdd()" *ngIf="role">+ Add Car</button>
                 </div>
             </div>
             <table class="table">

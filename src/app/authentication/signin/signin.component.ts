@@ -30,6 +30,7 @@ export class SigninComponent implements OnInit {
         sessionStorage.setItem("address", response.body.profile.Address)
         sessionStorage.setItem("email", response.body.profile.Email)
         sessionStorage.setItem("companyName", response.body.profile.CompanyName)
+        sessionStorage.setItem("role", response.body.profile.Role)
         console.log(response.body)
         this._router.navigate(['home']);
       })
