@@ -32,14 +32,13 @@ export class AddComponent implements OnInit {
     this.serverService.addCar(this.car).subscribe((response) => {
       console.log(response.body)
       this._router.navigate(['home']);
-    }// , error => {
-    //   console.log(error)
-    //   if (error.status == 401) {
-    //     this.message = error.message;
-    //     $('#myModal').modal('show')
-    //   }
-    // }
-    )
+    }, error => {
+      console.log(error)
+      if (error.status == 401) {
+        this.message = error.message;
+        $('#myModal').modal('show')
+      }
+    })
   }
 
   close() {

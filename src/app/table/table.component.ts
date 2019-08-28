@@ -21,6 +21,9 @@ export class TableComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if (this.role != "admin") {
+      this.role = ""
+    }
     this.getAllCars();
   }
 
