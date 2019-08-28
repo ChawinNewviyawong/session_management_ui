@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ServerServiceService } from '../service/server-service.service';
 import { Router } from '@angular/router';
+import $ from 'jquery';
+import 'bootstrap';
 
 @Component({
   selector: 'app-add',
@@ -21,6 +23,7 @@ export class AddComponent implements OnInit {
     colour: "",
     owner: "",
   }
+  message = "";
 
   ngOnInit() {
   }
@@ -29,7 +32,19 @@ export class AddComponent implements OnInit {
     this.serverService.addCar(this.car).subscribe((response) => {
       console.log(response.body)
       this._router.navigate(['home']);
-    })
+    }// , error => {
+    //   console.log(error)
+    //   if (error.status == 401) {
+    //     this.message = error.message;
+    //     $('#myModal').modal('show')
+    //   }
+    // }
+    )
+  }
+
+  close() {
+    $('#myModal').modal('hide')
+    this._router.navigate(['home'])
   }
 
 }

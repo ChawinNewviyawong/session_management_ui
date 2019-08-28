@@ -52,7 +52,11 @@ export class ServerServiceService {
 
   addCar(car) {
     let body = {
-      car: car,
+      key: car.key,
+      make: car.make,
+      model: car.model,
+      colour: car.colour,
+      owner: car.owner,
       profile: {
         sid: sessionStorage.getItem('sid'),
       }

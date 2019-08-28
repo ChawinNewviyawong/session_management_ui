@@ -3,7 +3,6 @@ import { ServerServiceService } from '../service/server-service.service';
 import { Router } from '@angular/router';
 import $ from 'jquery';
 import 'bootstrap';
-import { HttpClient } from 'selenium-webdriver/http';
 
 @Component({
   selector: 'app-table',
