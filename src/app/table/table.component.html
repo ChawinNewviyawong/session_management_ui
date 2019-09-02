@@ -19,7 +19,7 @@
                     <h2 class="card-title">Cars</h2>
                 </div>
                 <div class="col-md-6">
-                    <button class="btn btn-primary float-right rounded-pill" (click)="gotoAdd()" *ngIf="role">+ Add Car</button>
+                    <button class="btn btn-primary float-right rounded-pill" (click)="gotoAdd()" *ngIf="add">+ Add Car</button>
                 </div>
             </div>
             <table class="table">
@@ -29,6 +29,11 @@
                         <th>Model</th>
                         <th>Color</th>
                         <th>Owner</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,6 +42,21 @@
                         <td>{{car.model}}</td>
                         <td>{{car.color}}</td>
                         <td>{{car.owner}}</td>
+                        <td>
+                            <button class="btn btn-primary" *ngIf="submit">Submit</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" *ngIf="approve">Approve</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" *ngIf="reject">Reject</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" *ngIf="cancel">Cancel</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" *ngIf="complete">Complete</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>

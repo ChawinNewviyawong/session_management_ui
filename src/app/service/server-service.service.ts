@@ -23,7 +23,7 @@ export class ServerServiceService {
       username: user.username,
       password: user.password
     }
-    return this.httpClient.post<any>("http://82b6380f.ngrok.io/login", body, { headers, observe: 'response' })
+    return this.httpClient.post<any>("http://localhost:3000/login", body, { headers, observe: 'response' })
       .pipe(
         catchError(this.handleError)
       )
@@ -34,7 +34,7 @@ export class ServerServiceService {
       username: user.username,
       sid: sessionStorage.getItem("sid")
     }
-    return this.httpClient.post<any>("http://82b6380f.ngrok.io/logout", body, { headers, observe: 'response' })
+    return this.httpClient.post<any>("http://localhost:3000/logout", body, { headers, observe: 'response' })
       .pipe(
         catchError(this.handleError)
       )
@@ -44,7 +44,14 @@ export class ServerServiceService {
     let body = {
       sid: sessionStorage.getItem('sid'),
     }
-    return this.httpClient.post<any>('http://82b6380f.ngrok.io/getAllCars', body, { headers: headers, observe: 'response' })
+    return this.httpClient.post<any>('http://localhost:3000/getAllCars', body, { headers: headers, observe: 'response' })
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  getPermission() {
+    return this.httpClient.get<any>('http://209.97.167.162:9000/api/getAllPermission', { headers: headers, observe: 'response' })
       .pipe(
         catchError(this.handleError)
       )
@@ -61,7 +68,7 @@ export class ServerServiceService {
         sid: sessionStorage.getItem('sid'),
       }
     }
-    return this.httpClient.post<any>('http://82b6380f.ngrok.io/addCar', body, { headers: headers, observe: 'response' })
+    return this.httpClient.post<any>('localhost:3000/addCar', body, { headers: headers, observe: 'response' })
       .pipe(
         catchError(this.handleError)
       )

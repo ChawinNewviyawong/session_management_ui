@@ -14,6 +14,22 @@ export class TableComponent implements OnInit {
   cars = [];
   message = "";
   role = sessionStorage.getItem('role')
+  permission = {
+    add: "",
+    query: "",
+    submit: "",
+    approve: "",
+    reject: "",
+    cancel: "",
+    complete: "",
+  }
+  add;
+  query;
+  submit;
+  approve;
+  reject;
+  cancel;
+  complete;
 
   constructor(
     private serverService: ServerServiceService,
@@ -21,10 +37,7 @@ export class TableComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (this.role != "admin") {
-      this.role = ""
-    }
-    this.getAllCars();
+    this.checkedPermission(this.role)
   }
 
   getAllCars() {
@@ -43,6 +56,43 @@ export class TableComponent implements OnInit {
         this.cars.push(car);
       }
 
+    }, error => {
+      console.log(error)
+      if (error.status == 401) {
+        this.message = error.message;
+        $('#myModal').modal('show')
+      }
+    })
+
+  }
+
+  checkedPermission(role) {
+    this.serverService.getPermission().subscribe(response => {
+      interface Type {
+        [key: string]: any
+      }
+
+      for (let permissions of response.body) {
+        console.log(permissions)
+        let permission: Type = {}
+        permission.name = permissions.name
+        permission.Permission = permissions.Permission
+        this.permission[permission.name] = permission.Permission
+      }
+
+      console.log(this.permission)
+
+      if ((parseInt(this.permission.add) & parseInt(role)) != 0) this.add = true
+      if ((parseInt(this.permission.query) & parseInt(role)) != 0) this.query = true
+      if ((parseInt(this.permission.submit) & parseInt(role)) != 0) this.submit = true
+      if ((parseInt(this.permission.approve) & parseInt(role)) != 0) this.approve = true
+      if ((parseInt(this.permission.reject) & parseInt(role)) != 0) this.reject = true
+      if ((parseInt(this.permission.cancel) & parseInt(role)) != 0) this.cancel = true
+      if ((parseInt(this.permission.complete) & parseInt(role)) != 0) this.complete = true
+
+      if (this.query) {
+        this.getAllCars();
+      }
     }, error => {
       console.log(error)
       if (error.status == 401) {
